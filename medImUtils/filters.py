@@ -26,12 +26,14 @@ def kernelGauss(u,s,A=1):
 
 # -------------------------------------------------------------- #
    
-def ffilter(image,f):
+def ffilter(image,f1,f2=0):
     """
     Criando filtro ideal para dominio da frequencia
     
     INPUTS:
         image: imagem original ou imagem no dominio da frequencia
+        f1: frequencia maxima
+        f2: frequencia minima
         
     OUTPUTS:
         H: filtro de frequencia
@@ -39,10 +41,11 @@ def ffilter(image,f):
     import numpy as np
     H = np.zeros(image.shape, dtype = int)
     centerX, centerY = int((image.shape[0])/2),int((image.shape[1])/2)
-    filter_length = centerX*0.5
+    filter_length = centerX*f1
+    filter_length2 = centerX*f2
     for i in range (H.shape[0]):
         for j in range (H.shape[1]):
-            if ((centerX - i)**2 + (centerY - j)**2)**0.5 <= filter_length:
+            if (((centerX - i)**2 + (centerY - j)**2)**0.5 <= filter_length) and (((centerX - i)**2 + (centerY - j)**2)**0.5 >= filter_length2):
                 H[i,j] = 1   
     return H
 
@@ -88,14 +91,14 @@ def imageIFFT(imageFFT, show = False):
         IfftABS: valor absoluto da imagem no dominio espacial
     """
     import numpy as np
-    from medImUtils import changeFormat 
+    from medImUtils import info,changeFormat 
     Ifft = np.fft.ifftshift(imageFFT)
     Ifft = np.fft.ifft2(Ifft)
-    IfftABS = changeFormat.im2uint8(np.abs(Ifft))
+    IfftABS = changeFormat.imNormalize(np.abs(Ifft))
     if show:
-        images = {'IfftABS':IfftABS}
-        changeFormat.showImageStyle(1,1,images,['IfftABS'])
-    return Ifft,IfftABS,IfftABS
+        images = {'IfftABS':np.uint8(255*IfftABS)}
+        info.showImageStyle(1,1,images,['IfftABS'])
+    return Ifft,IfftABS
 
 # -------------------------------------------------------------- #
 

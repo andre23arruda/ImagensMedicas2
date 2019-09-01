@@ -18,7 +18,7 @@ def imResize(image,p1 = 1,p2 = 1):
         p2: Proporção da altura
     """
     from skimage.transform import resize as skResize
-    image_resized = skResize(image, (image.shape[0] * p1, image.shape[1] *p2), anti_aliasing=True,preserve_range=True)
+    image_resized = skResize(image, (int(image.shape[0] * p1), int(image.shape[1] *p2)), anti_aliasing=True,preserve_range=True)
     return image_resized
 
     
@@ -58,9 +58,7 @@ def imAdjust(image,p1,p2,gamma = 1):
     """
     from skimage import exposure
     imageResult = exposure.rescale_intensity(image, in_range=(p1*image.max(), p2*image.max()))
-    if gamma != 1:
-        imageResult = exposure.adjust_gamma(imageResult, gamma)
-        
+    imageResult = exposure.adjust_gamma(imageResult, gamma)        
     return imageResult
 
 # -------------------------------------------------------------- #

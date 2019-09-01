@@ -47,8 +47,7 @@ def im2uint8(image):
         image8: Imagem com valores de 0 a 255;
     """
     import numpy as np
-    if image.max() > 1 or image.min() < 0:
-        image = np.clip(image,0,1)
+    image = np.clip(image,0,1)
     image = imNormalize(image)
     image8 = np.uint8(image*255)
     return image8

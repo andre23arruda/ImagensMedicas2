@@ -34,13 +34,13 @@ def doHistogram(image,show = False):
     try:
         h[index] = counts
         if show:
-            plt.figure()
-            plt.get_current_fig_manager().window.showMaximized()
-            fig = plt.gcf()
-            fig.canvas.set_window_title('Histogram')
-            plt.title('Histogram')
-            plt.stem(np.arange(256),h)
-            plt.show()
+            plt.figure() # nova figura
+            plt.get_current_fig_manager().window.showMaximized() # maximizando
+            fig = plt.gcf() # current figure
+            fig.canvas.set_window_title('Histogram') # titulo da janela
+            plt.title('Histogram') # titulo do grafico
+            plt.stem(np.arange(256),h) # plot do tipo stem
+            plt.show() # exibindo
         return np.vstack((np.arange(256),h))
     except:
         print('ERRO!Não foi possível gerar o histograma')
