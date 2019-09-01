@@ -60,7 +60,7 @@ def doHistogram(image):
 h = doHistogram(Stent)
 plt.figure()
 plt.stem(np.arange(256),h[0])
-plt.get_current_fig_manager().window.showMaximized()
+plt.get_current_fig_manager().window.showMaximized() # para deixar a figura maximizada
 plt.show()
 
 #%% 6' - Outro jeito de fazer histograma

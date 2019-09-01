@@ -100,9 +100,11 @@ plt.show()
 H = np.zeros(squarePulse.shape, dtype = int)
 centerX, centerY = int((squarePulse.shape[0])/2),int((squarePulse.shape[1])/2)
 filter_length = centerX*0.5
+filter_length2 = centerX*0
+
 for i in range (H.shape[0]):
     for j in range (H.shape[1]):
-        if ((centerX - i)**2 + (centerY - j)**2)**0.5 <= filter_length:
+        if (((centerX - i)**2 + (centerY - j)**2)**0.5 <= filter_length) and (((centerX - i)**2 + (centerY - j)**2)**0.5 >= filter_length2):
             H[i,j] = 1
  
 Ffiltrado = squarePulseFFTshift*H
@@ -154,7 +156,7 @@ mamo_path = os.path.join(cf,'ImagensAulas','Mamography.pgm') # endereco da image
 mamo = imageio.imread(mamo_path)
 
 stent_path = os.path.join(cf,'ImagensAulas','Stent.pgm') # endereco da imagem
-stent = imageio.imread('G:\Meu Drive\CODIGOS\PYTHON\ImagensMedicas\ImagensAulas\Stent.pgm')
+stent = imageio.imread(stent_path)
 
 filtroMamo = imUtils.ffilter(mamo,0.1)
 filtroStent = imUtils.ffilter(stent,0.1)
