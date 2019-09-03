@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage
 import imageio
-from medImUtils import misc, filters, changeFormat, info
+from ImageMedicalLib import misc, filters, changeFormat, info
 
 #%% 1 - Funções temporais
 
@@ -61,7 +61,10 @@ fftsquarePulse,fftshiftsquarePulse,absfftsquarePulse = filters.imageFFT(squarePu
 logFFT = np.log(1+fftshiftsquarePulse)
 logFFTABS = np.abs(logFFT)
 logFFTABS = changeFormat.im2uint8(changeFormat.imNormalize(logFFTABS))
-info.showImageStyle(1,3,{'fftsquarePulse': changeFormat.im2uint8(changeFormat.imNormalize(np.abs(fftsquarePulse))),'absfftsquarePulse':absfftsquarePulse,'logFFTABS':logFFTABS},['fftsquarePulse','absfftsquarePulse','LogfftsquarePulse'])
+info.showImageStyle(1,3,{'fftsquarePulse': changeFormat.im2uint8(changeFormat.imNormalize(np.abs(fftsquarePulse))),
+                         'absfftsquarePulse':changeFormat.im2uint8(absfftsquarePulse),
+                         'logFFTABS':logFFTABS},
+                    ['fftsquarePulse','absfftsquarePulse','LogfftsquarePulse'])
 
 #%% 4 - Filtro passa baixas de 10%
 H = np.zeros(squarePulse.shape, dtype = int)
@@ -72,8 +75,11 @@ for i in range (H.shape[0]):
         if ((centerX - i)**2 + (centerY - j)**2)**0.5 <= filter_length:
             H[i,j] = 1
  
-Ffiltrado = absfftsquarePulse*H
-info.showImageStyle(1,3,{'absfftsquarePulse':absfftsquarePulse,'H':changeFormat.im2uint8(H),'Ffiltrado':Ffiltrado },['absfftsquarePulse','H','Ffiltrado'])
+Ffiltrado = changeFormat.im2uint8(absfftsquarePulse)*H
+info.showImageStyle(1,3,{'absfftsquarePulse':changeFormat.im2uint8(absfftsquarePulse),
+                         'H':changeFormat.im2uint8(H),
+                         'Ffiltrado':Ffiltrado },
+                    ['absfftsquarePulse','H','Ffiltrado'])
 Ffiltrado = fftshiftsquarePulse*H
 
 #%% 5 - Transformada inversa de Fourier
@@ -87,11 +93,15 @@ filtroStent = filters.ffilter(stent,0.8,0.3)
 
 mamoFFT,mamoFFTshift,absMamo = filters.imageFFT(mamo,False)
 mamoIFFT,mamoIFFTabs = filters.imageIFFT(mamoFFTshift*filtroMamo,False)
-info.showImageStyle(1,2,{'mamo':mamo,'mamoIFFTshift':np.uint8(255*mamoIFFTabs)},['mamo','mamo filtered'])
+info.showImageStyle(1,2,{'mamo':mamo,
+                         'mamoIFFTshift':np.uint8(255*mamoIFFTabs)},
+                    ['mamo','mamo filtered'])
 
 stentFFT,stentFFTshift,absStent = filters.imageFFT(stent,False)
 stentIFFT,stentIFFTabs = filters.imageIFFT(stentFFTshift*filtroStent,False)
-info.showImageStyle(1,2,{'stent':stent,'stentIFFTshift':np.uint8(255*stentIFFTabs)},['stent','stent filtered'])
+info.showImageStyle(1,2,{'stent':stent,
+                         'stentIFFTshift':np.uint8(255*stentIFFTabs)},
+                    ['stent','stent filtered'])
 
 
 

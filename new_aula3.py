@@ -2,7 +2,7 @@
 import numpy as np
 from scipy import ndimage
 import imageio
-from medImUtils import info
+from ImageMedicalLib import info
 
 #%% 1 - Dois vetores
 w = np.array([1,2,3,2,8])

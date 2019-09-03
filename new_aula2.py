@@ -3,7 +3,7 @@ import numpy as np
 import imageio
 import matplotlib.pyplot as plt
 from skimage import exposure
-from medImUtils import info,misc
+from ImageMedicalLib import info,misc
 
 #%% 1- Lendo imagens
 Mamo = imageio.imread(r'ImagensAulas\Mamography.pgm')
@@ -52,7 +52,7 @@ StentBrilho = misc.imBrightness(Stent,50)
 hist  = info.doHistogram(StentBrilho)
 plt.figure()
 fig = plt.gcf()
-fig.canvas.set_window_title('My title')
+fig.canvas.set_window_title('Aumentando brilho')
 plt.subplot(121)
 plt.stem(hist[1,:])
 
@@ -67,7 +67,7 @@ StentContraste = misc.imAdjust(StentBrilho,0.2,0.7,gamma = 1)
 hist  = info.doHistogram(StentContraste)
 plt.figure()
 fig = plt.gcf()
-fig.canvas.set_window_title('My title')
+fig.canvas.set_window_title('Ajuste de contraste')
 plt.subplot(121)
 plt.stem(hist[1,:])
 
@@ -83,7 +83,7 @@ StentContraste = misc.imAdjust(StentBrilho,0.2,0.7,gamma = 0.5)
 hist  = info.doHistogram(StentContraste)
 plt.figure()
 fig = plt.gcf()
-fig.canvas.set_window_title('My title')
+fig.canvas.set_window_title('Ajuste de contraste com gamma')
 plt.subplot(121)
 plt.stem(hist[1,:])
 

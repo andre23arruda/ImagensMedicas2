@@ -2,12 +2,12 @@
 import numpy as np # Módulo de cálculo matricial do Python
 import matplotlib.pyplot as plt # Módulo para exibir graficos e imagens
 import imageio # Módulo para ler e salvar imagens
-from medImUtils import info,changeFormat,misc
+from ImageMedicalLib import info,changeFormat,misc
 
 #%% 5 - Carregando Imagens
-I1 = imageio.imread(r'G:\Meu Drive\CODIGOS\PYTHON\ImagensMedicas\ImagensAulas\raioXTorax.pgm')
+I1 = imageio.imread(r'ImagensAulas\raioXTorax.pgm')
 I1.shape
-I2 = imageio.imread(r'G:\Meu Drive\CODIGOS\PYTHON\ImagensMedicas\ImagensAulas\raioXTorax.jpg')
+I2 = imageio.imread(r'ImagensAulas\raioXTorax.jpg')
 I2.shape
 
 #%% 6 - Tamanho da imagem

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage
 import imageio
-from medImUtils import info, misc,filters,changeFormat
+from ImageMedicalLib import info, misc,filters,changeFormat
 #%% 1 - Ordenando valores
 amostra = np.array([15,29, 5, 8, 255, 40, 1, 0, 10])
 amostraOrdenada = np.sort(amostra)
@@ -97,7 +97,9 @@ mask = filters.kernelGauss(8,3,A=1)
 f_blur = ndimage.convolve(imri,mask)
 g = imri - f_blur
 f_sharpened = (imri + g).clip(0,1)
-images = {'imri':changeFormat.im2uint8(imri),'f_blur':changeFormat.im2uint8(f_blur),'f_sharpened':changeFormat.im2uint8(f_sharpened)}
+images = {'imri':changeFormat.im2uint8(imri),
+          'f_blur':changeFormat.im2uint8(f_blur),
+          'f_sharpened':changeFormat.im2uint8(f_sharpened)}
 info.showImageStyle(1,3,images,['imri','f_blur','f_sharpened'])   
 
 
@@ -108,7 +110,9 @@ stent = imageio.imread(r'ImagensAulas\Stent.pgm')
 stent = changeFormat.uint2double(stent) # conversão para double para não dar ruim
 stent_dx = ndimage.correlate(stent,dx) # derivada em x
 stent_dy = ndimage.correlate(stent,dy) # derivada em y
-images = {'stent':changeFormat.im2uint8(stent),'stent_dx':changeFormat.im2uint8(stent_dx),'stent_dy':changeFormat.im2uint8(stent_dy)}
+images = {'stent':changeFormat.im2uint8(stent),
+          'stent_dx':changeFormat.im2uint8(stent_dx),
+          'stent_dy':changeFormat.im2uint8(stent_dy)}
 info.showImageStyle(1,3,images,['stent','stent_dx','stent_dy'])   
 
 #%% 5 - Priwitt
@@ -119,7 +123,10 @@ stent = changeFormat.uint2double(stent) # conversão para double para não dar r
 stent_x = ndimage.convolve(stent,wx)
 stent_y = ndimage.convolve(stent,wy)
 gradient_priwitt = np.sqrt(stent_x**2 + stent_y**2)
-images = {'stent':changeFormat.im2uint8(stent),'stent_x':changeFormat.im2uint8(stent_x),'stent_y':changeFormat.im2uint8(stent_y),'gradient_priwitt':changeFormat.im2uint8(gradient_priwitt)}
+images = {'stent':changeFormat.im2uint8(stent),
+          'stent_x':changeFormat.im2uint8(stent_x),
+          'stent_y':changeFormat.im2uint8(stent_y),
+          'gradient_priwitt':changeFormat.im2uint8(gradient_priwitt)}
 info.showImageStyle(1,4,images,['stent','stent_x','stent_y','gradient_priwitt'])   
 
 
@@ -131,10 +138,11 @@ stent = (stent - stent.min())/(stent.max() - stent.min()) # conversão para doub
 stent_x = ndimage.correlate(stent,wx)
 stent_y = ndimage.correlate(stent,wy)
 gradient_sobel = np.sqrt(stent_x**2 + stent_y**2)
-images = {'stent':changeFormat.im2uint8(stent),'stent_x':changeFormat.im2uint8(stent_x),'stent_y':changeFormat.im2uint8(stent_y),'gradient_sobel':changeFormat.im2uint8(gradient_sobel)}
+images = {'stent':changeFormat.im2uint8(stent),
+          'stent_x':changeFormat.im2uint8(stent_x),
+          'stent_y':changeFormat.im2uint8(stent_y),
+          'gradient_sobel':changeFormat.im2uint8(gradient_sobel)}
 info.showImageStyle(1,4,images,['stent','stent_x','stent_y','gradient_sobel'])   
-
-
 
 #%% 6 - Laplaciano 
 L1 = np.asarray([[0,1,0],[1,-4,1],[0,1,0]])
@@ -143,7 +151,9 @@ stent = imageio.imread(r'ImagensAulas\Stent.pgm')
 stent = (stent - stent.min())/(stent.max() - stent.min()) # aqui é a conversão para double para não dar ruim
 stent_L1 = ndimage.correlate(stent,L1) # Laplaciano 1
 stent_L2 = ndimage.correlate(stent,L2) # Laplaciano 2
-images = {'stent':changeFormat.im2uint8(stent),'stent_L1':changeFormat.im2uint8(stent_L1),'stent_L2':changeFormat.im2uint8(stent_L2)}
+images = {'stent':changeFormat.im2uint8(stent),
+          'stent_L1':changeFormat.im2uint8(stent_L1),
+          'stent_L2':changeFormat.im2uint8(stent_L2)}
 info.showImageStyle(1,3,images,['stent','stent_L1','stent_L2'])   
 
 
